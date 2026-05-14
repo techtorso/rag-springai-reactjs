@@ -1,0 +1,31 @@
+
+Projection:
+
+I built a secure full-stack RAG application using 
+	Spring Boot, 
+	Spring AI, 
+	PostgreSQL, 
+	JWT authentication, 
+	OTP verification, and 
+	React.
+
+
+#hello wrold
+2. Users authenticate using email/password + OTP verification. JWT-based security protects all APIs.
+
+3. Uploaded documents are processed using a RAG pipeline where documents are chunked, embeddings are generated using OpenAI embedding models, and vectors are stored in a vector database.
+
+4. When users ask questions, semantic similarity search retrieves relevant chunks and the LLM generates grounded responses using retrieved context.
+
+5. The frontend was built using React and Material UI with protected routes, dashboard layout, document upload functionality, and a ChatGPT-style AI interface.
+
+
+The application allows users to securely upload documents and query them using AI.
+
+Authentication is implemented using Spring Security, JWT tokens, and OTP verification.
+
+Uploaded documents are processed through a RAG pipeline where documents are chunked, embeddings are generated using OpenAI embedding models, and vectors are stored in a vector database.
+
+When users ask questions, semantic similarity search retrieves relevant chunks, which are passed to the LLM for grounded answer generation.
+
+The frontend was built using React and Material UI with protected routes, dashboard layouts, upload workflows, and a ChatGPT-style interface.
