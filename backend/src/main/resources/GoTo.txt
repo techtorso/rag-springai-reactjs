@@ -29,3 +29,9 @@ Uploaded documents are processed through a RAG pipeline where documents are chun
 When users ask questions, semantic similarity search retrieves relevant chunks, which are passed to the LLM for grounded answer generation.
 
 The frontend was built using React and Material UI with protected routes, dashboard layouts, upload workflows, and a ChatGPT-style interface.
+
+
+npm install react-markdown
+
+
+npm install remark-gfm
