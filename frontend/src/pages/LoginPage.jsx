@@ -12,7 +12,7 @@ import {
 
 import ChatIcon from "@mui/icons-material/Chat";
 import { loginUser } from "../api/authApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../api/authApi";
 
 
@@ -205,8 +205,32 @@ export default function LoginPage() {
                                 "Login"
                             )}
                         </Button>
-                        
+
                         <Button
+                            fullWidth
+                            component={Link}
+                            to="/about"
+                            variant="outlined"
+                            size="large"
+                            sx={{
+                                mb: 2,
+                                height: 50,
+                                borderRadius: 10,
+                                fontSize: 16,
+                                fontWeight: 700,
+                                textTransform: "none",
+                                color: "white",
+                                borderColor: "rgba(255,255,255,0.2)",
+                                '&:hover': {
+                                  borderColor: "#3b82f6",
+                                  background: "rgba(59,130,246,0.08)",
+                                },
+                            }}
+                        >
+                            View About Page
+                        </Button>
+                        
+                        {/* <Button
                             fullWidth
                             variant="contained"
                             size="large"
@@ -225,7 +249,7 @@ export default function LoginPage() {
                         >
                                 Register
                             
-                        </Button>
+                        </Button> */}
 
                         {message && (
                             <Typography

@@ -10,7 +10,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 import Register from "./pages/Register";
+import About from "./pages/About";
 
+import { Link } from "react-router-dom";
 
 function App() {
   return (
@@ -20,12 +22,12 @@ function App() {
         {/* <Route path="/" element={<Register />} /> */}
         <Route path="/" element={<LoginPage />} />
 
-        
+
         <Route
           path="/verify-otp"
           element={<VerifyOtpPage />}
         />
-        
+
         {/* Protected Dashboard */}
         <Route
           path="/dashboard"
@@ -50,6 +52,10 @@ function App() {
             element={<AskPage />}
           />
         </Route>
+          <Route
+            path="about"
+            element={<About />}
+          />
       </Routes>
     </BrowserRouter>
   );
