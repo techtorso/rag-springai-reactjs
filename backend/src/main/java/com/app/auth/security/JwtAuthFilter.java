@@ -42,8 +42,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             String token = authHeader.substring(7);
 
-            System.out.println("Auth Header: " + authHeader);
-            System.out.println("Token valid: " + jwtUtil.validateToken(token));
+//            System.out.println("Auth Header: " + authHeader);
+//            System.out.println("Token valid: " + jwtUtil.validateToken(token));
             
             
             

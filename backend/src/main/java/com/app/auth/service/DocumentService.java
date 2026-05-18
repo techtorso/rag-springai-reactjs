@@ -34,8 +34,8 @@ public class DocumentService {
 
         String text = extractText(file);
         
-        System.out.println("Extracted text = [" + text + "]");
-        System.out.println("Text length = " + text.length());
+//        System.out.println("Extracted text = [" + text + "]");
+//        System.out.println("Text length = " + text.length());
         
         
         
@@ -46,7 +46,7 @@ public class DocumentService {
             List.of(new Document(text))
         );
 
-        System.out.println("Chunk Size = " + chunks.size());
+//        System.out.println("Chunk Size = " + chunks.size());
 
         var auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -79,7 +79,7 @@ public class DocumentService {
         
 //        List<String> chunks = splitter.split(text);
         
-        System.out.println("Check here Very Important "+chunks.size());
+//        System.out.println("Check here Very Important "+chunks.size());
 
         
         

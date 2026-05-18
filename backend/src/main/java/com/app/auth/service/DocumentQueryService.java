@@ -34,7 +34,7 @@ public class DocumentQueryService {
 		            .getAuthentication()
 		            .getName();
 		 
-		 System.out.println("Logged User Kishore "+ currentUser);
+//		 System.out.println("Logged User Kishore "+ currentUser);
 	
 		 String sql = """
 		            SELECT DISTINCT metadata->>'fileName'

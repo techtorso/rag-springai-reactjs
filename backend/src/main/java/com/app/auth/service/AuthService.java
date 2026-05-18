@@ -73,8 +73,8 @@ public class AuthService {
 	        return Map.of("message", "Email already registered");
 	    }
 	    
-	    System.out.println("Password :  "+ req.getPassword());
-	    System.out.println("Confirm Password: "+ req.getComfirmPassword());
+//	    System.out.println("Password :  "+ req.getPassword());
+//	    System.out.println("Confirm Password: "+ req.getComfirmPassword());
 	    
 
 	    if (!req.getPassword()

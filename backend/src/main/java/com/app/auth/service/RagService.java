@@ -1,21 +1,22 @@
 package com.app.auth.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.document.Document;
+import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
-
 import com.app.auth.util.PromptTemplates;
+
+import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class RagService {
@@ -23,7 +24,11 @@ public class RagService {
     private final VectorStore vectorStore;
     private final ChatModel chatModel;
     
-    
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private EmbeddingModel embeddingModel;    
     
 
     public RagService(VectorStore vectorStore, ChatModel chatModel) {
@@ -33,7 +38,54 @@ public class RagService {
 	}
 
     
-    
+    public String retrieveContext(
+            String question,
+            String selectedDocument) {
+
+        StringBuilder contextBuilder =
+                new StringBuilder();
+
+        String sql;
+
+        List<Map<String, Object>> rows;
+
+        // ALL DOCUMENTS
+        if ("ALL".equalsIgnoreCase(selectedDocument)) {
+
+            sql = """
+                    SELECT content
+                    FROM vector_store
+                    LIMIT 5
+                    """;
+
+            rows = jdbcTemplate.queryForList(sql);
+
+        } else {
+
+            sql = """
+                    SELECT content
+                    FROM vector_store
+                    WHERE metadata->>'fileName' = ?
+                    LIMIT 5
+                    """;
+
+            rows = jdbcTemplate.queryForList(
+                    sql,
+                    selectedDocument
+            );
+        }
+
+        for (Map<String, Object> row : rows) {
+
+            contextBuilder.append(
+                    row.get("content")
+            );
+
+            contextBuilder.append("\n\n");
+        }
+
+        return contextBuilder.toString();
+    }
     
     public Map<String, Object> ask(String question, String fileName) {
     	 {
@@ -76,13 +128,13 @@ public class RagService {
     	        );
     	    }
 
-    	    for (Document doc : docs) {
-
-    	        System.out.println("================================");
-    	        System.out.println("Score: " + doc.getScore());
-    	        System.out.println(doc.getMetadata().get("fileName"));
-    	        System.out.println(doc.getText());
-    	    }
+//    	    for (Document doc : docs) {
+//
+//    	        System.out.println("================================");
+//    	        System.out.println("Score: " + doc.getScore());
+//    	        System.out.println(doc.getMetadata().get("fileName"));
+//    	        System.out.println(doc.getText());
+//    	    }
 
     	    String context = docs.stream()
     	            .map(doc -> "[Source: %s]\n%s".formatted(
@@ -120,15 +172,10 @@ public class RagService {
     	    );
     	}
     }
+
     
     
-	/*
-	 * private Set<String> extractKeywords(String question) { return
-	 * Arrays.stream(question.toLowerCase().split("\\s+")) .filter(word ->
-	 * word.length() > 3) .filter(word ->
-	 * !Set.of("what","how","many","years","have","worked","does").contains(word))
-	 * .collect(Collectors.toSet()); }
-	 */
+    
 
 
 
