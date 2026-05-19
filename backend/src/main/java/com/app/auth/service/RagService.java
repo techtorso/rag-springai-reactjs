@@ -115,17 +115,35 @@ public class RagService {
     	        );
     	    }
 
+    	    if (isSummaryQuery(question)) {
+
+    	        return summarizeDocument(fileName, currentUser);
+    	    }
+    	    
+    	    if (isExplainQuery(question)) {
+    	        return explainConcept(question, fileName, currentUser);
+    	    }
+    	    
     	    List<Document> docs =
     	            vectorStore.similaritySearch(builder.build());
 
     	    if (docs == null || docs.isEmpty()) {
+    	    	
+    	    	builder.similarityThreshold(0.2);
+    	    	
+    	    	
+    	    	docs = vectorStore.similaritySearch(builder.build());
 
-    	        return Map.of(
-    	                "answer",
-    	                "I couldn't find enough relevant information in your uploaded documents.",
-    	                "sources",
-    	                List.of()
-    	        );
+    	    	if (docs == null || docs.isEmpty()) {
+        	        return Map.of(
+        	                "answer",
+        	                "I couldn't find enough relevant information in your uploaded documents.",
+        	                "sources",
+        	                List.of()
+        	        );
+
+    	    	}
+    	    		
     	    }
 
 //    	    for (Document doc : docs) {
@@ -174,9 +192,196 @@ public class RagService {
     }
 
     
+    private boolean isSummaryQuery(String question) {
+
+        String q = question.toLowerCase();
+
+        return q.contains("summarize")
+                || q.contains("summary")
+                || q.contains("overview")
+                || q.contains("key points")
+                || q.contains("explain this document")
+                || q.contains("what is this document about");
+    }   
     
+
+//    private Map<String, Object> summarizeDocument(
+//            String fileName,
+//            String currentUser) {
+//
+//        SearchRequest request = SearchRequest.builder()
+//                .query("*")
+//                .topK(20)
+//                .filterExpression(
+//                        "uploadedBy == '" + currentUser +
+//                        "' && fileName == '" + fileName + "'"
+//                )
+//                .build();
+//
+//        List<Document> docs =
+//                vectorStore.similaritySearch(request);
+//
+//        String combinedText = docs.stream()
+//                .map(Document::getText)
+//                .collect(Collectors.joining("\n\n"));
+//
+//        String prompt = """
+//                Summarize the following document.
+//                Include:
+//                - Main topic
+//                - Key points
+//                - Important conclusions
+//
+//                DOCUMENT:
+//                %s
+//                """.formatted(combinedText);
+//
+//        String answer = chatModel.call(prompt);
+//
+//        return Map.of(
+//                "answer", answer,
+//                "sources", List.of()
+//        );
+
+
+    private Map<String, Object> summarizeDocument(
+            String fileName,
+            String currentUser) {
+
+        String sql = """
+                SELECT content
+                FROM vector_store
+                WHERE metadata->>'uploadedBy' = ?
+                AND metadata->>'fileName' = ?
+                ORDER BY CAST(metadata->>'chunkIndex' AS INTEGER)
+                LIMIT 20
+                """;
+
+        List<String> chunks = jdbcTemplate.queryForList(
+                sql,
+                String.class,
+                currentUser,
+                fileName
+        );
+
+        if (chunks == null || chunks.isEmpty()) {
+
+            return Map.of(
+                    "answer",
+                    "No content found for this document.",
+                    "sources",
+                    List.of()
+            );
+        }
+
+        String combinedText = String.join("\n\n", chunks);
+
+        String prompt = """
+                Summarize the following document.
+
+                Include:
+                - Main topic
+                - Key points
+                - Important conclusions
+
+                DOCUMENT:
+                %s
+                """.formatted(combinedText);
+
+        String answer = chatModel.call(prompt);
+
+        return Map.of(
+                "answer", answer,
+                "sources", List.of(
+                        Map.of("fileName", fileName)
+                )
+        );
+    }
     
+    private Map<String, Object> explainConcept(
+            String question,
+            String fileName,
+            String currentUser) {
 
+        SearchRequest.Builder builder = SearchRequest.builder()
+                .query(question)
+                .topK(5)
+                .similarityThreshold(0.4);
 
+        builder.filterExpression(
+                "uploadedBy == '" + currentUser +
+                "' && fileName == '" + fileName + "'"
+        );
 
+        List<Document> docs =
+                vectorStore.similaritySearch(builder.build());
+
+        if (docs == null || docs.isEmpty()) {
+
+            return Map.of(
+                    "answer",
+                    "I could not find enough information in the document.",
+                    "sources",
+                    List.of()
+            );
+        }
+
+        String context = docs.stream()
+                .map(Document::getText)
+                .collect(Collectors.joining("\n\n"));
+
+        String prompt = """
+                You are a helpful teacher.
+
+                Explain the following concept
+                in a beginner-friendly way using
+                ONLY the provided document context.
+
+                Use:
+                - simple language
+                - examples if possible
+                - step-by-step explanation
+
+                CONTEXT:
+                %s
+
+                QUESTION:
+                %s
+                """.formatted(context, question);
+
+        String answer = chatModel.call(prompt);
+
+        return Map.of(
+                "answer", answer,
+                "sources",
+                docs.stream()
+                        .limit(3)
+                        .map(doc -> Map.of(
+                                "fileName",
+                                String.valueOf(
+                                        doc.getMetadata()
+                                                .get("fileName")
+                                )
+                        ))
+                        .toList()
+        );
+    }
+    
+    private boolean isExplainQuery(String question) {
+
+        String q = question.toLowerCase().trim();
+
+        return q.startsWith("explain ")
+                || q.startsWith("teach me ")
+                || q.startsWith("how does ")
+                || q.startsWith("how do ")
+                || q.startsWith("what is jwt")
+                || q.startsWith("what is spring")
+                || q.startsWith("what is authentication");
+    }
+    
 }
+
+
+
+
