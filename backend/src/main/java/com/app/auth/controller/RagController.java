@@ -49,14 +49,14 @@ public class RagController {
 		return ResponseEntity.ok(ragService.ask(request.getQuestion(), request.getFileName()));
 	}
 
-	@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-	public Flux<String> streamAnswer(@RequestParam String question, @RequestParam String document) {
-
-		String context = ragService.retrieveContext(question, document);
-
-		String finalPrompt = PromptTemplates.PROMPT_TEMPLATE.formatted(document, context, question);
-
-		return chatClient.prompt(finalPrompt).stream().content();
-	}
+//	@GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+//	public Flux<String> streamAnswer(@RequestParam String question, @RequestParam String document) {
+//
+////		String context = ragService.retrieveContext(question, document);
+//
+//		String finalPrompt = PromptTemplates.PROMPT_TEMPLATE.formatted(document, context, question);
+//
+//		return chatClient.prompt(finalPrompt).stream().content();
+//	}
 
 }

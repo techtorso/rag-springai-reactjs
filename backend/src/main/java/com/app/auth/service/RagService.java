@@ -38,54 +38,7 @@ public class RagService {
 	}
 
     
-    public String retrieveContext(
-            String question,
-            String selectedDocument) {
-
-        StringBuilder contextBuilder =
-                new StringBuilder();
-
-        String sql;
-
-        List<Map<String, Object>> rows;
-
-        // ALL DOCUMENTS
-        if ("ALL".equalsIgnoreCase(selectedDocument)) {
-
-            sql = """
-                    SELECT content
-                    FROM vector_store
-                    LIMIT 5
-                    """;
-
-            rows = jdbcTemplate.queryForList(sql);
-
-        } else {
-
-            sql = """
-                    SELECT content
-                    FROM vector_store
-                    WHERE metadata->>'fileName' = ?
-                    LIMIT 5
-                    """;
-
-            rows = jdbcTemplate.queryForList(
-                    sql,
-                    selectedDocument
-            );
-        }
-
-        for (Map<String, Object> row : rows) {
-
-            contextBuilder.append(
-                    row.get("content")
-            );
-
-            contextBuilder.append("\n\n");
-        }
-
-        return contextBuilder.toString();
-    }
+    
     
     public Map<String, Object> ask(String question, String fileName) {
     	 {
@@ -146,13 +99,6 @@ public class RagService {
     	    		
     	    }
 
-//    	    for (Document doc : docs) {
-//
-//    	        System.out.println("================================");
-//    	        System.out.println("Score: " + doc.getScore());
-//    	        System.out.println(doc.getMetadata().get("fileName"));
-//    	        System.out.println(doc.getText());
-//    	    }
 
     	    String context = docs.stream()
     	            .map(doc -> "[Source: %s]\n%s".formatted(
@@ -204,45 +150,6 @@ public class RagService {
                 || q.contains("what is this document about");
     }   
     
-
-//    private Map<String, Object> summarizeDocument(
-//            String fileName,
-//            String currentUser) {
-//
-//        SearchRequest request = SearchRequest.builder()
-//                .query("*")
-//                .topK(20)
-//                .filterExpression(
-//                        "uploadedBy == '" + currentUser +
-//                        "' && fileName == '" + fileName + "'"
-//                )
-//                .build();
-//
-//        List<Document> docs =
-//                vectorStore.similaritySearch(request);
-//
-//        String combinedText = docs.stream()
-//                .map(Document::getText)
-//                .collect(Collectors.joining("\n\n"));
-//
-//        String prompt = """
-//                Summarize the following document.
-//                Include:
-//                - Main topic
-//                - Key points
-//                - Important conclusions
-//
-//                DOCUMENT:
-//                %s
-//                """.formatted(combinedText);
-//
-//        String answer = chatModel.call(prompt);
-//
-//        return Map.of(
-//                "answer", answer,
-//                "sources", List.of()
-//        );
-
 
     private Map<String, Object> summarizeDocument(
             String fileName,
