@@ -57,12 +57,14 @@ export default function UploadPage() {
             console.error(error);
 
             setErrorMessage(
-                error?.response?.data?.message ||
+                error.response?.data?.message ||
                 "File upload failed"
-            );
+            )
+            
         } finally {
             setLoading(false);
         }
+        
     };
 
     return (
