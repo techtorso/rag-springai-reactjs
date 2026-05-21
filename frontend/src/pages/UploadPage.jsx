@@ -43,6 +43,14 @@ export default function UploadPage() {
             setErrorMessage("");
             setSuccessMessage("");
 
+            const MAX_SIZE = 10 * 1024 * 1024;
+
+            if (selectedFile.size > MAX_SIZE) {
+                setErrorMessage("Maximum allowed file size is 10 MB");
+                setLoading(false);
+                return;
+            }
+
             const response = await uploadDocument(
                 selectedFile
             );
@@ -60,12 +68,14 @@ export default function UploadPage() {
                 error.response?.data?.message ||
                 "File upload failed"
             )
-            
+
         } finally {
             setLoading(false);
         }
-        
+
     };
+
+
 
     return (
         <Container maxWidth="md">
@@ -127,35 +137,35 @@ export default function UploadPage() {
                                 mb: 4,
                             }}
                         >
-                            Supported formats: PDF : Upload a Proper PDF File, 
+                            Supported formats: PDF : Upload a Proper PDF File,
                             Pro Tip: Open the PDF and you should ba able to select the text within..
                             Only that PDF is valid format.
 
                             Some PDF's contains scanned immages, the will not work
                         </Typography>
                         <Typography>
-                        <Button
-                            variant="outlined"
-                            component="label"
-                            sx={{
-                                borderRadius: 3,
-                                px: 5,
-                                py: 1.5,
-                                textTransform: "none",
-                                fontWeight: 600,
-                                borderColor: "#3b82f6",
-                                color: "#3b82f6",
-                                mb: 3,
-                            }}
-                        >
-                            Select File
-                            
-                            <input
-                                type="file"
-                                hidden
-                                onChange={handleFileChange}
-                            />  
-                        </Button>
+                            <Button
+                                variant="outlined"
+                                component="label"
+                                sx={{
+                                    borderRadius: 3,
+                                    px: 5,
+                                    py: 1.5,
+                                    textTransform: "none",
+                                    fontWeight: 600,
+                                    borderColor: "#3b82f6",
+                                    color: "#3b82f6",
+                                    mb: 3,
+                                }}
+                            >
+                                Select File
+
+                                <input
+                                    type="file"
+                                    hidden
+                                    onChange={handleFileChange}
+                                />
+                            </Button>
                         </Typography>
 
                         {selectedFile && (

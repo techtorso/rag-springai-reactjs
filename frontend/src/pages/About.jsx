@@ -297,6 +297,37 @@ Streaming Response`}
         </div>
       </section>
 
+      {/* CONTACT */}
+      <section className="max-w-7xl mx-auto px-6 py-10">
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10 md:p-12">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-4xl font-bold mb-3">Contact & Interest</h2>
+              <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
+                If you'd like to create an account or learn more about the platform,
+                reach out via email. We'll respond with next steps and share availability.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-slate-950 border border-slate-800 p-6 text-center">
+              <p className="text-sm uppercase tracking-[0.25em] text-cyan-400 mb-3">
+                Contact email
+              </p>
+              <a
+                href="mailto:contact@techtorso.ai"
+                className="text-xl font-semibold text-white hover:text-cyan-300 transition"
+              >
+                {/* contact@techtorso.ai */}
+                krishna.kishore86@gmail.com
+              </a>
+              <p className="text-slate-400 mt-3">
+                Send your email and let us know you are interested.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="border-t border-slate-800 mt-20">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-4">

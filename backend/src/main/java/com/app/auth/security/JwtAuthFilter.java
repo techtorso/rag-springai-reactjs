@@ -46,6 +46,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 //            System.out.println("Token valid: " + jwtUtil.validateToken(token));
             
             
+            System.out.println("METHOD: " + request.getMethod());
+            System.out.println("URI: " + request.getRequestURI());
             
             if (jwtUtil.validateToken(token)) {
 

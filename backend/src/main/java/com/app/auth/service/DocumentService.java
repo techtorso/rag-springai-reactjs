@@ -1,7 +1,6 @@
 package com.app.auth.service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +12,11 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.auth.exception.UploadLimitExceededException;
+import com.app.auth.repository.VectorStoreRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,7 @@ public class DocumentService {
 
 	private final VectorStore vectorStore;
 	private JdbcTemplate jdbcTemplate;
+	private VectorStoreRepository vectorStoreRepo;
 	
 
 	public DocumentService(VectorStore vectorStore, JdbcTemplate jdbcTemplate) {
@@ -114,5 +116,26 @@ public class DocumentService {
 			throw new RuntimeException("Failed to read PDF", e);
 		}
 	}
+	
+	
+	@Transactional
+	public void deleteDocument(String fileName) {
+
+	    String currentUser = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication()
+	            .getName();
+
+	    vectorStoreRepo.deleteByFileNameAndUser(
+	            fileName,
+	            currentUser
+	    );
+	}
+	
+	
+	
+	
+	
+	
 
 }

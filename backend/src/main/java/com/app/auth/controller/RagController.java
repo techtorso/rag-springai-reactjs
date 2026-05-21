@@ -4,21 +4,18 @@ import java.util.Map;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.auth.dto.AskRequest;
 import com.app.auth.service.RagService;
-import com.app.auth.util.PromptTemplates;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/api/rag")
@@ -59,4 +56,21 @@ public class RagController {
 //		return chatClient.prompt(finalPrompt).stream().content();
 //	}
 
+	
+	 @DeleteMapping("/documents/{fileName}")
+		public ResponseEntity<String> deleteDocument(
+		        @PathVariable String fileName) {
+
+//		    System.out.println("DELETE API HIT");
+
+//		    return ResponseEntity.ok("Deleted");
+
+		    ragService.deleteDocument(fileName);
+
+		    return ResponseEntity.ok("Document deleted successfully");
+		}
 }
+
+
+
+

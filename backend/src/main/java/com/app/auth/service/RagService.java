@@ -10,10 +10,15 @@ import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import com.app.auth.repository.VectorStoreRepository;
 import com.app.auth.util.PromptTemplates;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +35,9 @@ public class RagService {
     @Autowired
     private EmbeddingModel embeddingModel;    
     
-
+    @Autowired
+    private VectorStoreRepository vectorStoreRepo;
+    
     public RagService(VectorStore vectorStore, ChatModel chatModel) {
 		super();
 		this.vectorStore = vectorStore;
@@ -287,6 +294,23 @@ public class RagService {
                 || q.startsWith("what is authentication");
     }
     
+    
+    @Transactional
+	public void deleteDocument(String fileName) {
+
+	    String currentUser = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication()
+	            .getName();
+
+	    vectorStoreRepo.deleteByFileNameAndUser(
+	            fileName,
+	            currentUser
+	    );
+	} 
+    
+    
+   
 }
 
 
