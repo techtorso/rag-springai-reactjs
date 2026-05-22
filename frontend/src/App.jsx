@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+
+
+
 import LoginPage from "./pages/LoginPage";
 import VerifyOtpPage from "./pages/VerifyOtpPage";
 
@@ -11,6 +14,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Register from "./pages/Register";
 import About from "./pages/About";
+
+import UserManagement
+  from "./pages/admin/UserManagement";
 
 import { Link } from "react-router-dom";
 
@@ -51,11 +57,18 @@ function App() {
             path="ask"
             element={<AskPage />}
           />
-        </Route>
+
           <Route
-            path="about"
-            element={<About />}
+            path="users"
+            element={<UserManagement />}
           />
+
+
+        </Route>
+        <Route
+          path="about"
+          element={<About />}
+        />
       </Routes>
     </BrowserRouter>
   );

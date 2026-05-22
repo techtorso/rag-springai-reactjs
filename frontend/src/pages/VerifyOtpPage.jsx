@@ -39,7 +39,17 @@ export default function VerifyOtpPage() {
       console.log(response.data);
 
       // Save JWT token
-      localStorage.setItem("token", response.data.token);
+      const token =
+        response?.data?.token ||
+        response?.data?.accessToken ||
+        response?.data?.jwt ||
+        response?.data?.access_token;
+
+      if (token) {
+        localStorage.setItem("token", token);
+      } else {
+        throw new Error("OTP verification did not return a valid token.");
+      }
 
       setMessage("Login successful");
 

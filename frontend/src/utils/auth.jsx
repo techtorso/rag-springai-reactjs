@@ -1,10 +1,16 @@
 export const getToken = () => {
-    return localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    return token && token !== "undefined" && token !== "null" ? token : null;
 };
 
 
 
 export const setToken = (token) => {
+    if (!token || token === "undefined" || token === "null") {
+        localStorage.removeItem("token");
+        return;
+    }
+
     localStorage.setItem("token", token);
 };
 

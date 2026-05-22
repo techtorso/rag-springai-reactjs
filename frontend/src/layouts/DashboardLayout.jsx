@@ -24,6 +24,7 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import ChatIcon from "@mui/icons-material/Chat";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import PeopleIcon from "@mui/icons-material/People";
 import { GitBranch } from "lucide-react";
 import { Info } from "lucide-react";
 const expandedWidth = 260;
@@ -56,6 +57,11 @@ export default function DashboardLayout() {
       text: "Ask AI",
       icon: <ChatIcon />,
       path: "/dashboard/ask",
+    },
+    {
+      text: "User Management",
+      icon: <PeopleIcon />,
+      path: "/dashboard/users",
     },
     {
       text: "About The APP",
