@@ -34,26 +34,46 @@ public class SecurityConfig {
     private String allowedOrigins;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    	
+    	System.out.println("Filter Chain - Kishore");
+    	http
+        .cors(Customizer.withDefaults())
 
-        http
-        	.cors(Customizer.withDefaults())
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-            		.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-                  //   Public API's
-            		.requestMatchers("/api/auth/**").permitAll()
-            		.requestMatchers(
-            				HttpMethod.DELETE,
-            		"/api/rag/documents/**")
-            		.authenticated()
- 				//	  Admin Only           		
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                 // USER + ADMIN
-                    .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                 // RAG APIs (authenticated users)
-                    .requestMatchers("/api/rag/**").authenticated()
-                    .anyRequest().authenticated()
+        .csrf(csrf -> csrf.disable())
+
+        .authorizeHttpRequests(auth -> auth
+
+            // OPTIONS
+            .requestMatchers(
+                HttpMethod.OPTIONS,
+                "/**"
+            ).permitAll()
+
+            // PUBLIC APIs
+            .requestMatchers(
+                "/api/auth/**"
+            ).permitAll()
+
+            // ADMIN APIs
+            .requestMatchers(
+                "/api/admin/**"
+            ).hasRole("ADMIN")
+
+            // RAG APIs
+            .requestMatchers(
+                "/api/rag/**"
+            ).authenticated()
+
+            // EVERYTHING ELSE
+            .anyRequest().authenticated()
+        )
+
+        .sessionManagement(session ->
+            session.sessionCreationPolicy(
+                SessionCreationPolicy.STATELESS
             )
+        )
+
             .sessionManagement(session ->
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

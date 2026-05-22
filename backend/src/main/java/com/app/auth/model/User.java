@@ -1,6 +1,8 @@
 package com.app.auth.model;
 
 
+import javax.validation.constraints.NotNull;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String email;
 
     private String password;

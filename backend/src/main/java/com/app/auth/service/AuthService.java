@@ -1,6 +1,7 @@
 package com.app.auth.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import com.app.auth.model.Role;
 import com.app.auth.model.User;
 import com.app.auth.repository.OtpRepository;
 import com.app.auth.repository.UserRepository;
-
 
 import jakarta.transaction.Transactional;
 
@@ -86,7 +86,7 @@ public class AuthService {
 	    
 	    
 	    
-	    otpService.generateAndSendOtp(req.getEmail());
+//	    otpService.generateAndSendOtp(req.getEmail());
 
 	    User user = new User();
 	    user.setEmail(req.getEmail());
@@ -155,4 +155,8 @@ public class AuthService {
     public boolean validatePassword(String raw, String encoded) {
         return passwordEncoder.matches(raw, encoded);
     }
+    
+    
+    
+    
 }
