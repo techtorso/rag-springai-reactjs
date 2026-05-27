@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.app.auth.dto.RegisterRequest;
+import com.app.auth.exception.EmailAlreadyAvailableException;
 import com.app.auth.model.Role;
 import com.app.auth.model.User;
 import com.app.auth.repository.UserRepository;
@@ -36,8 +37,8 @@ public class AdminUserService {
                         request.getEmail());
 
         if (existing.isPresent()) {
-            throw new RuntimeException(
-                    "Username already exists");
+            
+            throw new EmailAlreadyAvailableException("Username already exists");
         }
 
         User user = new User();

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.app.auth.dto.LoginRequest;
 import com.app.auth.dto.OtpRequest;
 import com.app.auth.dto.RegisterRequest;
+import com.app.auth.exception.EmailAlreadyAvailableException;
 import com.app.auth.model.OtpVerification;
 import com.app.auth.model.Role;
 import com.app.auth.model.User;
@@ -69,8 +70,9 @@ public class AuthService {
 	public Map<String, String> register(RegisterRequest req) {
 
 	    if (userRepository.findByEmail(req.getEmail()).isPresent()) {
-//	        throw new RuntimeException("Email already registered");
-	        return Map.of("message", "Email already registered");
+	    	throw new EmailAlreadyAvailableException("Email already registered From Backend");
+	    
+//	        return Map.of("message", "Email already registered");
 	    }
 	    
 //	    System.out.println("Password :  "+ req.getPassword());

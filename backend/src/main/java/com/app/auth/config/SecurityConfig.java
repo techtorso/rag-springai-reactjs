@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.app.auth.security.JwtAuthFilter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -30,10 +31,15 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
     
+    
+    
+    
     @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    	
+    	ObjectMapper mapper = new ObjectMapper();
     	
     	System.out.println("Filter Chain - Kishore");
     	http
@@ -78,14 +84,48 @@ public class SecurityConfig {
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             
+//            .exceptionHandling(ex -> ex
+//                    .authenticationEntryPoint((req, res, ex1) -> {
+//                        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                    })
+//                    .accessDeniedHandler((req, res, ex2) -> {
+//                        res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+//                    })
+//            );
             .exceptionHandling(ex -> ex
-                    .authenticationEntryPoint((req, res, ex1) -> {
-                        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    })
-                    .accessDeniedHandler((req, res, ex2) -> {
-                        res.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    })
-            );
+            	    .authenticationEntryPoint((req, res, ex1) -> {
+
+            	        res.setContentType("application/json");
+            	        res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+            	        res.getWriter().write("""
+            	            {
+            	                "status": 401,
+            	                "message": "Invalid username or password"
+            	            }
+            	        """);
+            	    })
+
+            	    .accessDeniedHandler((req, res, ex2) -> {
+
+            	        res.setContentType("application/json");
+            	        res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+
+            	        res.getWriter().write("""
+            	            {
+            	                "status": 403,
+            	                "message": "Access denied"
+            	            }
+            	        """);
+            	    }));
+            
+    	
+    	
+            
+            
+            
+            
+            
 //        System.out.println("Authentication set: " + SecurityContextHolder.getContext().getAuthentication());
 
         return http.build();

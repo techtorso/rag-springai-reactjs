@@ -18,6 +18,8 @@ import com.app.auth.model.UpdateRoleRequest;
 import com.app.auth.model.User;
 import com.app.auth.service.AdminUserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/admin/users")
 public class AdminUserController {
@@ -27,7 +29,7 @@ public class AdminUserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(
-            @RequestBody RegisterRequest request) {
+           @Valid @RequestBody RegisterRequest request) {
     	System.out.println("Create User - Kishore");
         return ResponseEntity.ok(
                 adminUserService.createUser(request));

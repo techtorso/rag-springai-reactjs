@@ -10,18 +10,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.app.auth.dto.LoginRequest;
 import com.app.auth.dto.OtpRequest;
 import com.app.auth.dto.RegisterRequest;
+import com.app.auth.exception.InvalidOtpException;
+import com.app.auth.exception.InvalidPasswordException;
+import com.app.auth.exception.OtpAlreadyUsedException;
+import com.app.auth.exception.OtpExpiredException;
 import com.app.auth.model.OtpVerification;
-import com.app.auth.model.Role;
 import com.app.auth.model.User;
 import com.app.auth.repository.OtpRepository;
 import com.app.auth.repository.UserRepository;
 import com.app.auth.service.AuthService;
 import com.app.auth.service.JwtUtil;
 import com.app.auth.service.OtpService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -46,7 +51,7 @@ public class AuthController {
     // 1. REGISTER
     // =========================
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
         return ResponseEntity.ok(authService.register(req));
     }
     // =========================
@@ -85,8 +90,15 @@ public class AuthController {
         }
 
         if (!authService.validatePassword(req.getPassword(), user.getPassword())) {
-            return ResponseEntity.badRequest()
-                    .body("Invalid credentials");
+        	
+        	
+        	
+//            return ResponseEntity.badRequest()
+//                    .body("Invalid credentials");
+        	
+        	throw new InvalidPasswordException("Invalid Credentials");
+        	
+        	
         }
 
         otpService.generateAndSendOtp(req.getEmail());
@@ -130,15 +142,15 @@ public class AuthController {
                 .orElseThrow();
 
         if (otp.isUsed()) {
-            throw new RuntimeException("OTP already used");
+            throw new OtpAlreadyUsedException("OTP already used");
         }
 
         if (otp.getExpiryTime().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("OTP expired");
+            throw new OtpExpiredException("OTP expired");
         }
 
         if (!otp.getOtp().equals(req.getOtp())) {
-            throw new RuntimeException("Invalid OTP");
+            throw new InvalidOtpException("Invalid OTP Coming from Backend");
         }
 
         return otp;
