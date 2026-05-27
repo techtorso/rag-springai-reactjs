@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
   CircularProgress,
   Container,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -24,12 +26,23 @@ export default function VerifyOtpPage() {
 
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const showToast = (message, severity = "success") => {
+    setToast({ open: true, message, severity });
+  };
+
+  const handleCloseToast = () => {
+    setToast((current) => ({ ...current, open: false }));
+  };
 
   const handleVerifyOtp = async () => {
     try {
       setLoading(true);
-      setMessage("");
 
       const response = await verifyLoginOtp({
         email,
@@ -51,7 +64,7 @@ export default function VerifyOtpPage() {
         throw new Error("OTP verification did not return a valid token.");
       }
 
-      setMessage("Login successful");
+      showToast("Login successful", "success");
 
       // Redirect to dashboard
       setTimeout(() => {
@@ -60,9 +73,12 @@ export default function VerifyOtpPage() {
     } catch (error) {
       console.error(error);
 
-      setMessage(
+      showToast(
         error?.response?.data?.message ||
-          "OTP verification failed"
+        error?.response?.data?.error ||
+        error?.message ||
+        "OTP verification failed",
+        "error"
       );
     } finally {
       setLoading(false);
@@ -190,20 +206,24 @@ export default function VerifyOtpPage() {
               )}
             </Button>
 
-            {message && (
-              <Typography
-                sx={{
-                  mt: 3,
-                  textAlign: "center",
-                  color: "white",
-                }}
-              >
-                {message}
-              </Typography>
-            )}
           </CardContent>
         </Card>
       </Container>
+
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={4000}
+        onClose={handleCloseToast}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseToast}
+          severity={toast.severity}
+          sx={{ width: "100%" }}
+        >
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

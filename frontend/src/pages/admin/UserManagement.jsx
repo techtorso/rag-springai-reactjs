@@ -83,6 +83,33 @@ const UserManagement = () => {
     setToast({ open: true, message, severity });
   };
 
+  const getBackendErrorMessage = (error, defaultMessage = "An unexpected error occurred.") => {
+    if (!error) return defaultMessage;
+
+    const responseData = error?.response?.data;
+    if (typeof responseData === "string" && responseData.trim()) {
+      return responseData;
+    }
+
+    if (responseData?.message) {
+      return responseData.message;
+    }
+
+    if (responseData?.error) {
+      return responseData.error;
+    }
+
+    if (responseData?.detail) {
+      return responseData.detail;
+    }
+
+    if (Array.isArray(responseData?.errors)) {
+      return responseData.errors.map((item) => item.message || item).join(", ");
+    }
+
+    return error?.message || defaultMessage;
+  };
+
   const handleUpdateRole = async (id, role) => {
     setUpdatingRoleId(id);
     setError("");
@@ -132,8 +159,12 @@ const UserManagement = () => {
       showToast("User created successfully.");
       loadUsers();
     } catch (err) {
-      setError("Unable to create user. Please try again.");
-      showToast("Unable to create user.", "error");
+      const backendMessage = getBackendErrorMessage(
+        err,
+        "Unable to create user. Please try again."
+      );
+      setError(backendMessage);
+      showToast(backendMessage, "error");
     } finally {
       setSubmitting(false);
     }

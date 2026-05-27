@@ -1,369 +1,504 @@
-import React from "react";
-import {
-  ShieldCheck,
-  Database,
-  Brain,
-  FileText,
-  BookOpen,
-  Server,
-  Layers3,
-  Workflow,
-  Lock,
-  Globe,
-  Sparkles,
-} from "lucide-react";
-
-export default function AboutPage() {
+export default function TechTorsoAboutPage() {
   const features = [
     {
-      icon: <Brain size={28} />,
-      title: "AI-Powered RAG Architecture",
+      title: "AI-Powered Document Intelligence",
       description:
-        "Built using Retrieval Augmented Generation (RAG) principles with OpenAI embeddings and semantic document retrieval.",
+        "Ask natural language questions across your enterprise documents and receive context-aware AI generated answers in seconds.",
+      icon: "🧠",
     },
     {
-      icon: <Database size={28} />,
-      title: "Vector Database Integration",
+      title: "Multi-Document RAG Search",
       description:
-        "Uses PostgreSQL with pgvector for efficient vector similarity search and contextual retrieval.",
+        "Search across all uploaded documents simultaneously using advanced Retrieval-Augmented Generation (RAG) architecture.",
+      icon: "🔎",
     },
     {
-      icon: <FileText size={28} />,
-      title: "Document Intelligence",
+      title: "Document-Specific AI Conversations",
       description:
-        "Upload enterprise documents and interact with them through intelligent contextual question-answering.",
+        "Select a specific document and ask precise questions with highly relevant contextual answers.",
+      icon: "📄",
     },
     {
-      icon: <ShieldCheck size={28} />,
-      title: "Secure Authentication",
+      title: "Secure Role-Based Access Control",
       description:
-        "JWT-based authentication with secured APIs and enterprise-ready backend architecture.",
+        "Admin and User level permissions ensure sensitive information remains protected and accessible only to authorized users.",
+      icon: "🔐",
     },
-    // {
-    //   icon: <Workflow size={28} />,
-    //   title: "Streaming AI Responses",
-    //   description:
-    //     "Supports real-time streamed responses for a modern conversational AI experience.",
-    // },
     {
-      icon: <Server size={28} />,
-      title: "Production-Ready Backend",
+      title: "User Management Console",
       description:
-        "Built with Java, Spring Boot, Spring AI, and scalable REST API architecture.",
+        "Admins can create, manage, and remove users with centralized access control capabilities.",
+      icon: "👥",
     },
+    {
+      title: "Smart Document Indexing",
+      description:
+        "Uploaded documents are automatically chunked, embedded, and indexed for lightning-fast semantic retrieval.",
+      icon: "⚡",
+    },
+    {
+      title: "Support for Multiple File Formats",
+      description:
+        "Upload and process PDFs, DOCX files, and text documents with seamless extraction and indexing.",
+      icon: "📚",
+    },
+    {
+      title: "Enterprise-Grade Security",
+      description:
+        "JWT-based authentication, secured APIs, protected routes, and backend authorization ensure secure operations.",
+      icon: "🛡️",
+    },
+    {
+      title: "Modern Responsive UI",
+      description:
+        "Clean, responsive, and intuitive interface optimized for productivity across desktop and tablet devices.",
+      icon: "💻",
+    },
+    {
+      title: "Real-Time AI Responses",
+      description:
+        "Experience fast and intelligent answers powered by advanced Large Language Models integrated with enterprise search.",
+      icon: "🚀",
+    },
+    {
+      title: "Document Ownership & Isolation",
+      description:
+        "Users can securely access only the documents they are authorized to view and interact with.",
+      icon: "🏢",
+    },
+    {
+      title: "Production-Ready Architecture",
+      description:
+        "Built using scalable backend services, PostgreSQL, Elasticsearch/OpenSearch, Spring Boot, and React.",
+      icon: "🌐",
+    },
+  ];
+
+  const sellingPoints = [
+    "Eliminates manual document searching",
+    "Improves organizational productivity",
+    "Accelerates knowledge discovery",
+    "Reduces employee dependency on SMEs",
+    "Provides instant AI-powered answers",
+    "Supports enterprise-scale document retrieval",
+    "Enhances security with RBAC and JWT",
+    "Scalable architecture for future growth",
+    "Easy onboarding and user management",
+    "Optimized semantic search using embeddings",
   ];
 
   const techStack = [
-    "Java 21",
-    "Spring Boot",
-    "Spring AI",
-    "PostgreSQL",
-    "pgvector",
     "React",
+    "Spring Boot",
+    "PostgreSQL",
+    "Elasticsearch / OpenSearch",
     "JWT Authentication",
-    "OpenAI APIs",
     "REST APIs",
-    "Maven",
-    "github",
-    "Docker Ready",
+    "RAG Architecture",
+    "LLM Integration",
+    "Vector Search",
+    "Responsive UI",
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      {/* HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-sm text-slate-300 mb-6">
-            <Sparkles size={16} />
-            Production Grade AI Platform
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white px-6 py-10">
+      <div className="max-w-7xl mx-auto space-y-16">
+        {/* Hero Section */}
+        <section className="text-center space-y-6">
+          <div className="inline-flex items-center gap-3 bg-slate-800/70 border border-slate-700 rounded-full px-5 py-2 text-sm shadow-lg">
+            <span className="text-cyan-400">●</span>
+            Intelligent Enterprise RAG Platform
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Enterprise RAG Platform
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+            About <span className="text-cyan-400">TechTorso AI</span>
           </h1>
 
           <p className="text-slate-300 text-lg md:text-xl max-w-4xl mx-auto leading-relaxed">
-            A production-grade Retrieval Augmented Generation (RAG) platform
-            built using Java, Spring Boot, Spring AI, PostgreSQL, and OpenAI.
-            Designed for secure enterprise document intelligence, semantic
-            search, and scalable AI-powered knowledge systems.
+            TechTorso AI is an enterprise-grade Retrieval-Augmented Generation
+            (RAG) platform designed to transform how organizations interact
+            with their internal knowledge base. The platform enables users to
+            upload documents, securely manage access, and ask AI-powered
+            questions to instantly retrieve accurate, contextual answers.
+            Built using modern open-source technologies and scalable AI
+            architecture, TechTorso AI combines flexibility, transparency,
+            performance, and enterprise-ready capabilities into a unified
+            intelligent knowledge platform.
           </p>
+        </section>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
-            <a
-              href="https://github.com/techtorso"
-              target="_blank"
-              rel="noreferrer"
-              className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:scale-105 transition"
-            >
-              View Open Source
-            </a>
-
-            <a
-              href="/"
-              className="border border-slate-700 px-6 py-3 rounded-xl hover:bg-slate-900 transition"
-            >
-              Launch Application
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="text-center mb-14">
-          <h2 className="text-4xl font-bold mb-4">Core Features</h2>
-          <p className="text-slate-400 text-lg">
-            Built with enterprise-grade architecture and modern AI engineering
-            principles.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-slate-600 transition"
-            >
-              <div className="mb-4 text-cyan-400">{feature.icon}</div>
-
-              <h3 className="text-xl font-semibold mb-3">
-                {feature.title}
-              </h3>
-
-              <p className="text-slate-400 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ARCHITECTURE */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10">
-          <div className="flex items-center gap-3 mb-6">
-            <Layers3 className="text-cyan-400" size={32} />
-            <h2 className="text-4xl font-bold">
-              Enterprise Architecture
+        {/* Vision Section */}
+        <section className="grid md:grid-cols-2 gap-8">
+          <div className="bg-slate-900/70 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+            <h2 className="text-3xl font-bold mb-4 text-cyan-400">
+              Our Vision
             </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-10 text-slate-300 leading-relaxed">
-            <div>
-              <p className="mb-5">
-                The platform follows a modern Retrieval Augmented Generation
-                (RAG) pipeline architecture capable of supporting enterprise
-                document intelligence systems.
-              </p>
-
-              <p className="mb-5">
-                Uploaded documents are transformed into embeddings and stored
-                inside PostgreSQL vector storage using pgvector for semantic
-                similarity search.
-              </p>
-
-              <p>
-                During user queries, the system retrieves contextually relevant
-                information before generating AI responses using OpenAI models.
-              </p>
-            </div>
-
-            <div>
-              <div className="bg-slate-950 rounded-2xl p-6 border border-slate-800">
-                <pre className="text-sm text-cyan-300 overflow-auto">
-{`User Question
-      ↓
-Embedding Search
-      ↓
-Vector Retrieval
-      ↓
-Context Injection
-      ↓
-OpenAI Generation
-      ↓
-Streaming Response`}
-                </pre>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TECH STACK */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Technology Stack</h2>
-          <p className="text-slate-400 text-lg">
-            Modern backend and AI infrastructure technologies.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-4">
-          {techStack.map((tech, index) => (
-            <div
-              key={index}
-              className="bg-slate-900 border border-slate-800 px-5 py-3 rounded-xl text-slate-300 hover:border-cyan-500 transition"
-            >
-              {tech}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* OPEN SOURCE */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="bg-gradient-to-r from-cyan-900/20 to-slate-900 rounded-3xl border border-cyan-800 p-10">
-          <div className="flex items-center gap-3 mb-6">
-            <BookOpen className="text-cyan-400" size={32} />
-            <h2 className="text-4xl font-bold">
-              Open Source & Customizable
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-10">
-            <div className="text-slate-300 leading-relaxed">
-              <p className="mb-5">
-                This project is open source and designed to serve as a
-                customizable enterprise-grade RAG foundation for organizations,
-                developers, and AI engineers.
-              </p>
-
-              <p className="mb-5">
-                Organizations are expected to configure and manage their own:
-              </p>
-
-              <ul className="space-y-3 text-slate-400">
-                <li>• Database infrastructure</li>
-                <li>• Authentication systems</li>
-                <li>• OpenAI API keys</li>
-                <li>• Security policies</li>
-                <li>• Cloud deployments</li>
-                <li>• User management workflows</li>
-              </ul>
-            </div>
-
-            <div className="bg-slate-950 rounded-2xl border border-slate-800 p-6">
-              <div className="flex items-center gap-2 mb-4 text-cyan-400">
-                <Lock size={20} />
-                <h3 className="font-semibold text-lg">
-                  Security & Ownership
-                </h3>
-              </div>
-
-              <p className="text-slate-400 leading-relaxed mb-5">
-                The platform does not manage customer enterprise credentials or
-                company-sensitive infrastructure. Each organization retains full
-                ownership and control over its data, databases, security
-                configurations, and deployment environment.
-              </p>
-
-              <p className="text-slate-400 leading-relaxed">
-                The goal is to provide a scalable AI foundation while enabling
-                complete customization and infrastructure independence.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FUTURE ROADMAP */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Future Roadmap</h2>
-          <p className="text-slate-400 text-lg">
-            Planned improvements and upcoming enterprise AI capabilities.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            "Conversation Memory",
-            "Follow-Up Questions",
-            "Role-Based Access Control",
-            "Multi-Tenant Architecture",
-            "Hybrid Search",
-            "Redis Caching",
-            "Azure Deployments",
-            "Advanced Analytics",
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-center text-slate-300"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10 md:p-12">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div>
-              <h2 className="text-4xl font-bold mb-3">Contact & Interest</h2>
-              <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
-                If you'd like to create an account or learn more about the platform,
-                reach out via email. We'll respond with next steps and share availability.
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-slate-950 border border-slate-800 p-6 text-center">
-              <p className="text-sm uppercase tracking-[0.25em] text-cyan-400 mb-3">
-                Contact email
-              </p>
-              <a
-                href="mailto:contact@techtorso.ai"
-                className="text-xl font-semibold text-white hover:text-cyan-300 transition"
-              >
-                {/* contact@techtorso.ai */}
-                krishna.kishore86@gmail.com
-              </a>
-              <p className="text-slate-400 mt-3">
-                Send your email and let us know you are interested.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-slate-800 mt-20">
-        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>
-            <h3 className="text-xl font-semibold">TechTorso AI Platform</h3>
-            <p className="text-slate-500 mt-1">
-              Enterprise AI • RAG • Spring AI • Open Source
+            <p className="text-slate-300 leading-relaxed text-lg">
+              We aim to simplify enterprise knowledge access using advanced AI
+              and semantic search technologies. TechTorso AI empowers teams to
+              retrieve information instantly without manually navigating through
+              lengthy documents.
             </p>
           </div>
 
-          <div className="flex items-center gap-5 text-slate-400">
-            <a
-              href="https://github.com/techtorso"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-white transition"
-            >
-              github
-            </a>
-
-            <a
-              href="/"
-              className="hover:text-white transition"
-            >
-              Application
-            </a>
-
-            <a
-              href="#"
-              className="hover:text-white transition"
-            >
-              Documentation
-            </a>
+          <div className="bg-slate-900/70 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+            <h2 className="text-3xl font-bold mb-4 text-cyan-400">
+              Why TechTorso?
+            </h2>
+            <p className="text-slate-300 leading-relaxed text-lg">
+              Traditional search systems rely heavily on keywords. TechTorso AI
+              uses semantic understanding and contextual retrieval to provide
+              highly accurate AI-generated answers from enterprise documents.
+            </p>
           </div>
-        </div>
-      </footer>
+        </section>
+
+        {/* Features */}
+        <section className="space-y-8">
+          <div className="text-center space-y-3">
+            <h2 className="text-4xl font-bold">Core Features</h2>
+            <p className="text-slate-400 text-lg">
+              Powerful capabilities built for modern enterprise knowledge
+              management.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 hover:border-cyan-500 transition-all duration-300 hover:shadow-cyan-500/10 hover:shadow-2xl"
+              >
+                <div className="text-5xl mb-5">{feature.icon}</div>
+                <h3 className="text-2xl font-semibold mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-400 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Selling Points */}
+        <section className="grid lg:grid-cols-2 gap-8 items-start">
+          <div className="bg-slate-900/70 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+            <h2 className="text-3xl font-bold mb-6 text-cyan-400">
+              Key Business Benefits
+            </h2>
+
+            <div className="space-y-4">
+              {sellingPoints.map((point, index) => (
+                <div
+                  key={index}
+                  className="flex items-start gap-3 bg-slate-800/50 rounded-2xl p-4"
+                >
+                  <div className="text-cyan-400 text-xl mt-1">✓</div>
+                  <p className="text-slate-300 text-lg">{point}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-slate-900/70 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+            <h2 className="text-3xl font-bold mb-6 text-cyan-400">
+              Technology Stack
+            </h2>
+
+            <div className="grid grid-cols-2 gap-4">
+              {techStack.map((tech, index) => (
+                <div
+                  key={index}
+                  className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4 text-center text-lg font-medium hover:border-cyan-500 transition-all"
+                >
+                  {tech}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 bg-cyan-500/10 border border-cyan-500/30 rounded-2xl p-6">
+              <h3 className="text-2xl font-semibold mb-3 text-cyan-300">
+                Open-Source Powered Innovation
+              </h3>
+              <p className="text-slate-300 leading-relaxed mb-6">
+                TechTorso AI leverages a powerful ecosystem of trusted
+                open-source technologies including React, Spring Boot,
+                PostgreSQL, Elasticsearch/OpenSearch, and modern AI-driven RAG
+                frameworks to deliver enterprise-grade intelligence with
+                scalability and flexibility.
+              </p>
+              <h3 className="text-2xl font-semibold mb-3 text-cyan-300">
+                Scalable Architecture
+              </h3>
+              <p className="text-slate-300 leading-relaxed">
+                TechTorso AI is designed with enterprise scalability in mind,
+                supporting secure document ingestion, vector search, semantic
+                retrieval, and future expansion for advanced AI workflows.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Security Section */}
+        <section className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-3xl p-10 shadow-2xl">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-5">
+              <h2 className="text-4xl font-bold text-cyan-400">
+                Enterprise Security & Governance
+              </h2>
+
+              <p className="text-slate-300 text-lg leading-relaxed">
+                Security is at the core of TechTorso AI. The platform includes
+                JWT authentication, role-based access control, secure APIs,
+                protected document ownership, and backend authorization layers
+                to safeguard enterprise data.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="bg-slate-900/60 rounded-2xl p-4 border border-slate-700">
+                  <h4 className="font-semibold text-cyan-300 mb-2">
+                    Authentication
+                  </h4>
+                  <p className="text-slate-400 text-sm">
+                    Secure JWT-based sessions
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/60 rounded-2xl p-4 border border-slate-700">
+                  <h4 className="font-semibold text-cyan-300 mb-2">
+                    RBAC
+                  </h4>
+                  <p className="text-slate-400 text-sm">
+                    Fine-grained access control
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/60 rounded-2xl p-4 border border-slate-700">
+                  <h4 className="font-semibold text-cyan-300 mb-2">
+                    API Protection
+                  </h4>
+                  <p className="text-slate-400 text-sm">
+                    Secured backend endpoints
+                  </p>
+                </div>
+
+                <div className="bg-slate-900/60 rounded-2xl p-4 border border-slate-700">
+                  <h4 className="font-semibold text-cyan-300 mb-2">
+                    Data Isolation
+                  </h4>
+                  <p className="text-slate-400 text-sm">
+                    User-specific document access
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-900/70 border border-slate-700 rounded-3xl p-8 shadow-2xl space-y-6">
+              <h3 className="text-3xl font-bold text-center text-cyan-300">
+                Platform Highlights
+              </h3>
+
+              <div className="space-y-5">
+                <div className="flex items-center justify-between bg-slate-800/60 rounded-2xl p-4">
+                  <span className="text-lg">AI-Powered Search</span>
+                  <span className="text-cyan-400 font-bold">✓</span>
+                </div>
+
+                <div className="flex items-center justify-between bg-slate-800/60 rounded-2xl p-4">
+                  <span className="text-lg">Enterprise Security</span>
+                  <span className="text-cyan-400 font-bold">✓</span>
+                </div>
+
+                <div className="flex items-center justify-between bg-slate-800/60 rounded-2xl p-4">
+                  <span className="text-lg">Semantic Retrieval</span>
+                  <span className="text-cyan-400 font-bold">✓</span>
+                </div>
+
+                <div className="flex items-center justify-between bg-slate-800/60 rounded-2xl p-4">
+                  <span className="text-lg">Scalable Architecture</span>
+                  <span className="text-cyan-400 font-bold">✓</span>
+                </div>
+
+                <div className="flex items-center justify-between bg-slate-800/60 rounded-2xl p-4">
+                  <span className="text-lg">Production Ready</span>
+                  <span className="text-cyan-400 font-bold">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Future Vision */}
+        <section className="bg-slate-900/70 border border-slate-800 rounded-3xl p-10 shadow-2xl text-center space-y-6">
+          <h2 className="text-4xl font-bold text-cyan-400">
+            Future Roadmap
+          </h2>
+
+          <p className="text-slate-300 text-lg max-w-5xl mx-auto leading-relaxed">
+            TechTorso AI is continuously evolving with upcoming capabilities
+            such as streaming AI responses, OCR support, citation highlighting,
+            audit logs, advanced analytics, multi-tenant architecture, SSO
+            integration, and intelligent enterprise workflows.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 pt-4">
+            {[
+              "Streaming AI",
+              "OCR Support",
+              "SSO Integration",
+              "Audit Logs",
+              "Analytics",
+              "Chat History",
+              "Citation Highlighting",
+              "Multi-Tenant Support",
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="bg-cyan-500/10 border border-cyan-500/30 rounded-full px-5 py-2 text-cyan-200"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Access Request Section */}
+        <section className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-cyan-500/20 rounded-3xl p-10 shadow-2xl">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-5">
+              <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-4 py-2 text-cyan-300 text-sm">
+                Early Access Registration
+              </div>
+
+              <h2 className="text-4xl font-bold leading-tight">
+                Request Access to
+                <span className="text-cyan-400"> TechTorso AI</span>
+              </h2>
+
+              <p className="text-slate-300 text-lg leading-relaxed">
+                Interested in using TechTorso AI for your organization? Submit
+                your details and our team will reach out to provide platform
+                access, onboarding assistance, and enterprise deployment
+                guidance.
+              </p>
+
+              <div className="space-y-4 pt-4">
+                <div className="flex items-center gap-3 bg-slate-900/50 rounded-2xl p-4 border border-slate-800">
+                  <div className="text-cyan-400 text-2xl">✓</div>
+                  <div>
+                    <h4 className="font-semibold">Enterprise Onboarding</h4>
+                    <p className="text-slate-400 text-sm">
+                      Personalized setup and platform walkthrough
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 bg-slate-900/50 rounded-2xl p-4 border border-slate-800">
+                  <div className="text-cyan-400 text-2xl">✓</div>
+                  <div>
+                    <h4 className="font-semibold">Secure Access Provisioning</h4>
+                    <p className="text-slate-400 text-sm">
+                      Controlled and role-based platform access
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 bg-slate-900/50 rounded-2xl p-4 border border-slate-800">
+                  <div className="text-cyan-400 text-2xl">✓</div>
+                  <div>
+                    <h4 className="font-semibold">Dedicated Support</h4>
+                    <p className="text-slate-400 text-sm">
+                      Guidance for deployment and integration
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-900/70 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+              <h3 className="text-3xl font-bold mb-6 text-cyan-400 text-center">
+                Contact Our Team
+              </h3>
+
+              <form className="space-y-5">
+                <div>
+                  <label className="block text-sm text-slate-400 mb-2">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-slate-400 mb-2">
+                    Work Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="name@company.com"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-slate-400 mb-2">
+                    Organization
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Company or Organization"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-slate-400 mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Tell us about your use case or requirements"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold py-4 rounded-2xl transition-all duration-300 hover:shadow-cyan-500/30 hover:shadow-2xl"
+                >
+                  Request Platform Access
+                </button>
+              </form>
+
+              <div className="mt-6 text-center text-slate-400 text-sm">
+                Or contact us directly at
+                <span className="text-cyan-400"> support@techtorso.io</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="text-center pt-6 border-t border-slate-800 space-y-3">
+          <h3 className="text-2xl font-bold text-cyan-400">
+            TechTorso AI Platform
+          </h3>
+
+          <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            Delivering intelligent enterprise search, AI-powered document
+            understanding, and scalable Retrieval-Augmented Generation
+            solutions for modern organizations.
+          </p>
+
+          <div className="text-slate-500 text-sm pt-4">
+            © 2026 TechTorso.io • Enterprise AI Knowledge Platform
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }

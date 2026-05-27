@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import api from "../services/api";
 
 const BASE_URL = "http://localhost:3214/api";
 export const askQuestion = async (
@@ -7,7 +8,7 @@ export const askQuestion = async (
     token
 ) => {
 
-    const response = await axios.post(
+    const response = await api.post(
         `${BASE_URL}/rag/ask`,
         {
             question,

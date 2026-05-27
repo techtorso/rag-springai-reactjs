@@ -12,13 +12,10 @@ import AskPage from "./pages/AskPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import DashboardLayout from "./layouts/DashboardLayout";
-import Register from "./pages/Register";
 import About from "./pages/About";
 
 import UserManagement
   from "./pages/admin/UserManagement";
-
-import { Link } from "react-router-dom";
 
 function App() {
   return (
@@ -60,9 +57,12 @@ function App() {
 
           <Route
             path="users"
-            element={<UserManagement />}
+            element={
+              <ProtectedRoute adminOnly>
+                <UserManagement />
+              </ProtectedRoute>
+            }
           />
-
 
         </Route>
         <Route

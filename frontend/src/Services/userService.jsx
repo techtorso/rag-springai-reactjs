@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import api from "./api";
 
 const BASE_URL = "http://localhost:3214";
 
@@ -16,7 +17,7 @@ const authHeaders = (token) => {
 
 export const getUsers = async (token) => {
 
-    const response = await axios.get(
+    const response = await api.get(
         `${BASE_URL}/api/admin/users`,
         {
             headers: authHeaders(token),
@@ -37,7 +38,7 @@ export const createUser = async (
         delete payload.username;
     }
 
-    const response = await axios.post(
+    const response = await api.post(
         `${BASE_URL}/api/admin/users`,
         payload,
         {
@@ -53,7 +54,7 @@ export const disableUser = async (
     token
 ) => {
 
-    const response = await axios.put(
+    const response = await api.put(
         `${BASE_URL}/api/admin/users/${id}/disable`,
         {},
         {
@@ -69,7 +70,7 @@ export const enableUser = async (
     token
 ) => {
 
-    const response = await axios.put(
+    const response = await api.put(
         `${BASE_URL}/api/admin/users/${id}/enable`,
         {},
         {
@@ -85,7 +86,7 @@ export const deleteUser = async (
     token
 ) => {
 
-    const response = await axios.delete(
+    const response = await api.delete(
         `${BASE_URL}/api/admin/users/${id}`,
         {
             headers: authHeaders(token),
@@ -101,7 +102,7 @@ export const updateRole = async (
     token
 ) => {
 
-    const response = await axios.put(
+    const response = await api.put(
         `${BASE_URL}/api/admin/users/${id}/role`,
         { role },
         {

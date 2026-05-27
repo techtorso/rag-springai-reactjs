@@ -1,17 +1,19 @@
 import { useState } from "react";
 import {
+    Alert,
     Box,
     Button,
     Card,
     CardContent,
     CircularProgress,
     Container,
+    Snackbar,
     TextField,
     Typography,
 } from "@mui/material";
 
 import ChatIcon from "@mui/icons-material/Chat";
-import { loginUser } from "../api/authApi";TextField
+import { loginUser } from "../api/authApi";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../api/authApi";
 
@@ -20,14 +22,24 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [toast, setToast] = useState({
+        open: false,
+        message: "",
+        severity: "success",
+    });
     const navigate = useNavigate();
 
-    
+    const showToast = (message, severity = "success") => {
+        setToast({ open: true, message, severity });
+    };
+
+    const handleCloseToast = () => {
+        setToast((current) => ({ ...current, open: false }));
+    };
+
     const handleLogin = async () => {
         try {
             setLoading(true);
-            setMessage("");
 
             const response = await loginUser({
                 email,
@@ -36,7 +48,7 @@ export default function LoginPage() {
 
             console.log(response.data);
 
-            setMessage("OTP sent successfully");
+            showToast("OTP sent successfully", "success");
 
             setTimeout(() => {
                 navigate("/verify-otp", {
@@ -50,9 +62,10 @@ export default function LoginPage() {
         } catch (error) {
             console.error(error);
 
-            setMessage(
+            showToast(
                 error?.response?.data?.message ||
-                "Login failed. Please try again"
+                "Login failed. Please try again",
+                "error"
             );
         } finally {
             setLoading(false);
@@ -251,17 +264,20 @@ export default function LoginPage() {
                             
                         </Button> */}
 
-                        {message && (
-                            <Typography
-                                sx={{
-                                    mt: 3,
-                                    textAlign: "center",
-                                    color: "white",
-                                }}
+                        <Snackbar
+                            open={toast.open}
+                            autoHideDuration={4000}
+                            onClose={handleCloseToast}
+                            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                        >
+                            <Alert
+                                onClose={handleCloseToast}
+                                severity={toast.severity}
+                                sx={{ width: "100%" }}
                             >
-                                {message}
-                            </Typography>
-                        )}
+                                {toast.message}
+                            </Alert>
+                        </Snackbar>
                     </CardContent>
                 </Card>
             </Container>
