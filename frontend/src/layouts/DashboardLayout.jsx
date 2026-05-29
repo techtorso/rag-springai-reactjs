@@ -27,6 +27,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import PeopleIcon from "@mui/icons-material/People";
 import { GitBranch } from "lucide-react";
 import { Info } from "lucide-react";
+import { isAdmin } from "../utils/auth";
 const expandedWidth = 260;
 const collapsedWidth = 90;
 
@@ -62,13 +63,14 @@ export default function DashboardLayout() {
       text: "User Management",
       icon: <PeopleIcon />,
       path: "/dashboard/users",
+      adminOnly: true,
     },
     {
       text: "About The APP",
       icon: <Info />,
-      path: "/about"
+      path: "/about",
     },
-  ];
+  ].filter((item) => !item.adminOnly || isAdmin());
 
   return (
     <Box

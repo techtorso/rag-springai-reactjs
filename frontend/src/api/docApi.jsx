@@ -1,5 +1,5 @@
 import axios from "axios";
-import api from "../services/api";
+// import api from "../services/api";
 
 const BASE_URL = "http://localhost:3214/api";
 
@@ -10,7 +10,7 @@ export const uploadDocument = async (file) => {
 
   formData.append("file", file);
 
-  return api.post(
+  return axios.post(
     `${BASE_URL}/docs/upload`,
     formData,
     {

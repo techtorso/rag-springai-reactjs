@@ -22,7 +22,7 @@ api.interceptors.response.use(
     (error) => {
 
         if (error.response?.status === 401) {
-
+            <Console>Culprit</Console>
             localStorage.clear();
 
             window.location.href = "/";

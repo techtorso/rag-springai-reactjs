@@ -65,8 +65,8 @@ export default function UploadPage() {
             console.error(error);
 
             setErrorMessage(
-                error.response?.data?.message ||
-                "File upload failed"
+                error.response?.data?.message 
+                // "File upload failed"
             )
 
         } finally {
@@ -137,11 +137,8 @@ export default function UploadPage() {
                                 mb: 4,
                             }}
                         >
-                            Supported formats: PDF : Upload a Proper PDF File,
-                            Pro Tip: Open the PDF and you should ba able to select the text within..
-                            Only that PDF is valid format.
-
-                            Some PDF's contains scanned immages, the will not work
+                            Supported formats: PDF, docx, txt
+                            
                         </Typography>
                         <Typography>
                             <Button

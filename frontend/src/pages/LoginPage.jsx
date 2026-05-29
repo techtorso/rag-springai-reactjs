@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import {
     Alert,
@@ -12,7 +13,8 @@ import {
     Typography,
 } from "@mui/material";
 
-import ChatIcon from "@mui/icons-material/Chat";
+// import ChatIcon from "@mui/icons-material/Chat";
+import chatIcon from "../assets/chat-icon2.png";
 import { loginUser } from "../api/authApi";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../api/authApi";
@@ -93,29 +95,34 @@ export default function LoginPage() {
                         boxShadow: "0 10px 40px rgba(0,0,0,0.4)",
                     }}
                 >
-                    <CardContent sx={{ p: 5 }}>
+                    <CardContent sx={{ p: 1 }}>
                         <Box
                             sx={{
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
-                                mb: 4,
+                                mb: 1,
                             }}
                         >
                             <Box
                                 sx={{
-                                    width: 80,
-                                    height: 80,
+                                    width: 350,
+                                    height: 350,
                                     borderRadius: "50%",
                                     background:
-                                        "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
+                                        
+                                        "linear-gradient(135deg, #1c2434 0%, #1c2434 100%)",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    mb: 2,
+                                    mb: -10,
                                 }}
                             >
-                                <ChatIcon sx={{ color: "white", fontSize: 40 }} />
+                                <img 
+                                src = {chatIcon}
+                                alt = "Chat Icon"
+                                style={{ width: 300, height: 300, objectFit: "scale-down" }}
+                                 />
                             </Box>
 
                             <Typography
@@ -123,6 +130,7 @@ export default function LoginPage() {
                                 sx={{
                                     color: "white",
                                     fontWeight: 700,
+                                    
                                 }}
                             >
                                 RAG Assistant
