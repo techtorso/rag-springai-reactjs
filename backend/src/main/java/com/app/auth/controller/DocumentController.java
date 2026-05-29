@@ -32,10 +32,24 @@ public class DocumentController {
 
 	@PostMapping("/upload")
     public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+		
+		
+		String fileName = file.getOriginalFilename().toLowerCase();
 
-        if (!"application/pdf".equals(file.getContentType())) {
-            return ResponseEntity.badRequest().body("Only PDF files are allowed");
-        }
+		boolean validExtension =
+		        fileName.endsWith(".pdf") ||
+		        fileName.endsWith(".docx") ||
+		        fileName.endsWith(".txt");
+
+		boolean validMimeType =
+		        "application/pdf".equals(file.getContentType()) ||
+		        "application/vnd.openxmlformats-officedocument.wordprocessingml.document".equals(file.getContentType()) ||
+		        "text/plain".equals(file.getContentType());
+		
+		if (!validExtension || !validMimeType) {
+		    throw new IllegalArgumentException("Unsupported file type");
+		}
+	
 
         long maxSize = 10 * 1024 * 1024;
         

@@ -120,7 +120,7 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse(
                 400,
                 "Method Arguement Kishore ",
-                errorMessage
+                "Krishna  Kishore Back End"
                 
         );
 
