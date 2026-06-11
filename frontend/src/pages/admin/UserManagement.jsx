@@ -255,7 +255,7 @@ const UserManagement = () => {
             <Box>
               <Typography variant="h4" fontWeight={700} gutterBottom>
                 User Management
-              </Typography>
+              </Typography>``
               <Typography color="text.secondary" sx={{ maxWidth: 560 }}>
                 Manage application users, update account status, and add new
                 members from a polished admin interface.
