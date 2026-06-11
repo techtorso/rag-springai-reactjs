@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg18
+    container_name: postgres18
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_DB_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+    ports:
+      - 55432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql
+  backend:
+    build: .
+    container_name: backend
+    depends_on:
+      - postgres
+    ports:
+      - 3214:3214
+    environment:
+      SERVER_PORT: "3214"
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: "3600000"
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PORT: "587"
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      CHAT_MODEL: gpt-4o-mini
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      EMBEDDING_MODEL: text-embedding-3-small
+      MAX_FILE_SIZE: 20MB
+      MAX_REQUEST_SIZE: 20MB
+      MAX_DOCUMENTS_PER_USER: "100"
+      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      OTP_EXPIRY_MINUTES: "10"
+      EMAIL_TO_ACCES_GRANTING: krishna.kishore86@gmail.com
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+volumes:
+  postgres_data:
+
+   frontend:
+	build: ../frontend
+	container_name: frontend
+	ports:
+		- "5173:80"
+	depends_on:
+		- backend
