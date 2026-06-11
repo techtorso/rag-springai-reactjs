@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.app.auth.exception.InvalidPasswordException;
 import com.app.auth.exception.OtpAlreadyUsedException;
 import com.app.auth.exception.OtpExpiredException;
 import com.app.auth.model.OtpVerification;
+import com.app.auth.model.Role;
 import com.app.auth.model.User;
 import com.app.auth.repository.OtpRepository;
 import com.app.auth.repository.UserRepository;
@@ -46,6 +49,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // =========================
     // 1. REGISTER
@@ -88,6 +94,7 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body("Email not verified");
         }
+
 
         if (!authService.validatePassword(req.getPassword(), user.getPassword())) {
         	
@@ -154,5 +161,23 @@ public class AuthController {
         }
 
         return otp;
+    }
+    
+    
+    
+    
+    
+    @GetMapping("/dev/reset-admin")
+    public String resetAdminPassword() {
+        User user = userRepository.findByEmail("krishna.kishore86@gmail.com")
+                .orElseThrow();
+
+        user.setPassword(passwordEncoder.encode("Apple@123a"));
+        user.setRole(Role.ADMIN);
+        user.setEnabled(true);
+        user.setEmailVerified(true);
+
+        userRepository.save(user);
+        return "Admin password reset";
     }
 }

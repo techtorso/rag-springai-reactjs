@@ -19,10 +19,6 @@ public class DocumentQueryService {
     
     
 
-    public DocumentQueryService(JdbcTemplate jdbcTemplate) {
-		super();
-		this.jdbcTemplate = jdbcTemplate;
-	}
 
 
 

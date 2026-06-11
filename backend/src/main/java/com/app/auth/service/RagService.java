@@ -38,11 +38,11 @@ public class RagService {
     @Autowired
     private VectorStoreRepository vectorStoreRepo;
     
-    public RagService(VectorStore vectorStore, ChatModel chatModel) {
-		super();
-		this.vectorStore = vectorStore;
-		this.chatModel = chatModel;
-	}
+//    public RagService(VectorStore vectorStore, ChatModel chatModel) {
+//		super();
+//		this.vectorStore = vectorStore;
+//		this.chatModel = chatModel;
+//	}
 
     
     

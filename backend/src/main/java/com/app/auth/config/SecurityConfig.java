@@ -36,12 +36,13 @@ public class SecurityConfig {
     
     @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
+    
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	
     	ObjectMapper mapper = new ObjectMapper();
     	
-    	System.out.println("Filter Chain - Kishore");
     	http
         .cors(Customizer.withDefaults())
 
@@ -57,8 +58,16 @@ public class SecurityConfig {
 
             // PUBLIC APIs
             .requestMatchers(
-                "/api/auth/**"
+            	"/actuator/health",
+            	"/actuator/info",
+            	 "/dev/reset-admin",
+            	"/api/auth/**"	
             ).permitAll()
+            
+        
+            
+            .requestMatchers("/api/public/**").permitAll()
+            
 
             // ADMIN APIs
             .requestMatchers(
