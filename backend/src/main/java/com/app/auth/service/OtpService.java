@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,12 @@ public class OtpService {
 	@Autowired
 	private  OtpRepository otpRepository;
 	
+	@Autowired
+	private  EmailService emailService;
+	
+	@Autowired
+	@Value("${app.otp.expiry-minutes}")
+	private long expiryTime;
 
 	
 	@Autowired
@@ -34,12 +41,12 @@ public class OtpService {
 	    OtpVerification entity = new OtpVerification();
 	    entity.setEmail(email);
 	    entity.setOtp(otp);
-	    entity.setExpiryTime(LocalDateTime.now().plusMinutes(30));
+	    entity.setExpiryTime(LocalDateTime.now().plusMinutes(expiryTime));
 	    entity.setUsed(false);
 
 	    otpRepository.save(entity);
 
-	    sendEmail(email, otp);
+	    emailService.otpMail(email, otp);
 
 }
 	

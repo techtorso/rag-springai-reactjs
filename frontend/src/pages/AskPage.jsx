@@ -13,14 +13,14 @@ import {
 
 import { useEffect, useState } from "react";
 
-import { getDocuments } from "../services/documentService";
+import { getDocuments } from "../Services/documentService";
 
 import { askQuestion } from "../api/ragApi";
 
 import { getToken } from "../utils/auth";
 
 import AnswerRenderer from "../components/AnswerRenderer";
-import { deleteDocument } from "../services/documentService";
+import { deleteDocument } from "../Services/documentService";
 
 import { delApi } from "../api/delApi";
 
@@ -40,6 +40,7 @@ export default function AskAI() {
         "Explain this document in simple terms",
         "Teach me this topic",
         "List important commands",
+        "Explain about this hymn"
     ];
 
     useEffect(() => {

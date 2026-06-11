@@ -14,12 +14,12 @@ public class ErrorResponse {
     private String message;
     
     
-	public ErrorResponse(int status, String error, String message) {
-		super();
-		this.status = status;
-		this.error = error;
-		this.message = message;
-	}
+//	public ErrorResponse(int status, String error, String message) {
+//		super();
+//		this.status = status;
+//		this.error = error;
+//		this.message = message;
+//	}
 	public int getStatus() {
 		return status;
 	}

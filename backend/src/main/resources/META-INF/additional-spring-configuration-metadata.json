@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "app.cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'app.cors.allowed-origins'"
+  },
+  {
+    "name": "rag.access.request.mail",
+    "type": "java.lang.String",
+    "description": "A description for 'rag.access.request.mail'"
+  },
+  {
+    "name": "jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.expiration'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.secret'"
+  },
+  {
+    "name": "app.max-documents-per-user",
+    "type": "java.lang.String",
+    "description": "A description for 'app.max-documents-per-user'"
+  }
+]}

@@ -1,4 +1,86 @@
+// import {requestAccess}  from "../api/requestAccess";
+
+import { useState } from "react";
+import axios from "axios";
+import { Alert, Snackbar } from "@mui/material";
+
+const BASE_URL = "http://localhost:3214/api";
+
+
+
 export default function TechTorsoAboutPage() {
+
+    const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    organization: "",
+    text: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const showToast = (message, severity = "success") => {
+    setToast({ open: true, message, severity });
+  };
+
+  const handleCloseToast = () => {
+    setToast((current) => ({ ...current, open: false }));
+  };
+
+  const handleGrantAccess = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3214/api/public/access-request",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      showToast(
+        response.data.message || "Access request submitted successfully",
+        "success"
+      );
+      
+      // Reset form
+      setFormData({
+        fullName: "",
+        email: "",
+        organization: "",
+        text: "",
+      });
+    } catch (error) {
+      // console.error("Full error:", error);
+      // console.error("Error response:", error.response?.data);
+      // console.error("Status:", error.response?.status);
+      
+      showToast(
+        error.response?.data?.message ||
+        error.response?.data ||
+        `Error: ${error.response?.status || error.message}`,
+        "error"
+      );
+    }
+  };
+
+
+
   const features = [
     {
       title: "AI-Powered Document Intelligence",
@@ -421,13 +503,16 @@ export default function TechTorsoAboutPage() {
                 Contact Our Team
               </h3>
 
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleGrantAccess}>
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">
                     Full Name
                   </label>
                   <input
                     type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
                     placeholder="Enter your name"
                     className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all"
                   />
@@ -439,6 +524,9 @@ export default function TechTorsoAboutPage() {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="name@company.com"
                     className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all"
                   />
@@ -450,6 +538,9 @@ export default function TechTorsoAboutPage() {
                   </label>
                   <input
                     type="text"
+                    name="organization"
+                    value={formData.organization}
+                    onChange={handleChange}
                     placeholder="Company or Organization"
                     className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all"
                   />
@@ -460,6 +551,9 @@ export default function TechTorsoAboutPage() {
                     Message
                   </label>
                   <textarea
+                    name="text"
+                    value={formData.text}
+                    onChange={handleChange}
                     rows={4}
                     placeholder="Tell us about your use case or requirements"
                     className="w-full bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-all resize-none"
@@ -476,7 +570,7 @@ export default function TechTorsoAboutPage() {
 
               <div className="mt-6 text-center text-slate-400 text-sm">
                 Or contact us directly at
-                <span className="text-cyan-400"> support@techtorso.io</span>
+                <span className="text-cyan-400"> krishna.kishore86@gmail.com</span>
               </div>
             </div>
           </div>
@@ -498,6 +592,22 @@ export default function TechTorsoAboutPage() {
             © 2026 TechTorso.io • Enterprise AI Knowledge Platform
           </div>
         </footer>
+
+        {/* Toast Notification */}
+        <Snackbar
+          open={toast.open}
+          autoHideDuration={6000}
+          onClose={handleCloseToast}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={handleCloseToast}
+            severity={toast.severity}
+            sx={{ width: "100%" }}
+          >
+            {toast.message}
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

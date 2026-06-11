@@ -14,9 +14,13 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -28,24 +32,29 @@ import com.app.auth.exception.UnSupportedFileType;
 import com.app.auth.exception.UploadLimitExceededException;
 import com.app.auth.repository.VectorStoreRepository;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class DocumentService {
 
-	private final VectorStore vectorStore;
-	private JdbcTemplate jdbcTemplate;
-	private VectorStoreRepository vectorStoreRepo;
+	@Autowired
+	private  VectorStore vectorStore;
+	
+	@Autowired
+	private  JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private  VectorStoreRepository vectorStoreRepo;
 
-	public DocumentService(VectorStore vectorStore, JdbcTemplate jdbcTemplate) {
-		super();
-		this.vectorStore = vectorStore;
-		this.jdbcTemplate = jdbcTemplate;
-	}
-
+	@Value("${app.max-documents-per-user}")
+	private long maxFilesUploadLimit;
+	
+	
+	
+	
 	public void processDocument(MultipartFile file) {
-
+		
+		
+		
 		String text;
 
 //		= extractText(file);
@@ -89,21 +98,24 @@ public class DocumentService {
 					WHERE metadata->>'uploadedBy' = ?
 
 					                     """;
-
+			
 			Integer count = jdbcTemplate.queryForObject(sql, Integer.class, auth.getName());
 
 			count = (count == null) ? 0 : count;
 
-			if (count >= 5) {
-				System.out.println("Max Limit - Kishore");
-				throw new UploadLimitExceededException("Maximum 5 documents allowed per user");
+			if (count >= maxFilesUploadLimit ) {
+				throw new UploadLimitExceededException("Maximum"+ 
+														" "+maxFilesUploadLimit + " "+
+															"documents allowed per user");
 			}
 
 			vectorStore.add(documents);
 
 		}
 		catch (UploadLimitExceededException ue) {
-			throw new UploadLimitExceededException("Maximum 5 documents allowed per user");
+			throw new UploadLimitExceededException("Maximum"+ 
+					" "+maxFilesUploadLimit + " "+
+					"documents allowed per user");
 			
 		} 
 		catch (Exception e) {

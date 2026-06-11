@@ -20,10 +20,10 @@ public class DocumentQueryController {
     private final DocumentQueryService documentQueryService;
 
     
-    public DocumentQueryController(DocumentQueryService documentQueryService) {
-		super();
-		this.documentQueryService = documentQueryService;
-	}
+//    public DocumentQueryController(DocumentQueryService documentQueryService) {
+//		super();
+//		this.documentQueryService = documentQueryService;
+//	}
 
 
 	@GetMapping

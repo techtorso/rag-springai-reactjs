@@ -72,7 +72,6 @@ public class AuthService {
 	    if (userRepository.findByEmail(req.getEmail()).isPresent()) {
 	    	throw new EmailAlreadyAvailableException("Email already registered From Backend");
 	    
-//	        return Map.of("message", "Email already registered");
 	    }
 	    
 //	    System.out.println("Password :  "+ req.getPassword());
