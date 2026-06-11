@@ -1,0 +1,63 @@
+name: backend
+services:
+  backend:
+    build:
+      context: D:\rag-springai-reactjs\backend
+      dockerfile: Dockerfile
+    container_name: backend
+    depends_on:
+      postgres:
+        condition: service_started
+        required: true
+    environment:
+      CHAT_MODEL: gpt-4o-mini
+      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      DB_PASSWORD: root
+      DB_URL: jdbc:postgresql://postgres:5432/student_db
+      DB_USERNAME: postgres
+      EMAIL_TO_ACCES_GRANTING: krishna.kishore86@gmail.com
+      EMBEDDING_MODEL: text-embedding-3-small
+      JWT_EXPIRATION: "3600000"
+      JWT_SECRET: +ESvTqas3yfPUmokAleX/JDWhK+1ghvBdKWoCi8qFESzgPZZ1sxUNl6NtYSNrd7sG/6etmlbkg71E0aQWvjoJg==
+      MAIL_HOST: smtp.gmail.com
+      MAIL_PASSWORD: whaantykqzbmfnke
+      MAIL_PORT: "587"
+      MAIL_USERNAME: krishna.kishore86@gmail.com
+      MAX_DOCUMENTS_PER_USER: "100"
+      MAX_FILE_SIZE: 20MB
+      MAX_REQUEST_SIZE: 20MB
+      OPENAI_API_KEY: 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
+      OTP_EXPIRY_MINUTES: "10"
+      SERVER_PORT: "3214"
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3214
+        published: "3214"
+        protocol: tcp
+  postgres:
+    container_name: postgres18
+    environment:
+      POSTGRES_DB: student_db
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+    image: pgvector/pgvector:pg18
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5433"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: postgres_data
+        target: /var/lib/postgresql/data
+        volume: {}
+networks:
+  default:
+    name: backend_default
+volumes:
+  postgres_data:
+    name: backend_postgres_data
