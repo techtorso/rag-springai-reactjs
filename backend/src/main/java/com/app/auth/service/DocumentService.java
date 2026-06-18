@@ -79,7 +79,7 @@ public class DocumentService {
 				throw new UnSupportedFileType("Unsupported file type, Only PDF, Docx, txt");
 			}
 
-
+			System.out.println("Testing Telugu Text Extracting "+text);
 //			
 
 			TokenTextSplitter splitter = new TokenTextSplitter();

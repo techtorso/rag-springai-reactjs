@@ -127,6 +127,29 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(error);
     }
     
+    
+    
+    
+    
+    @ExceptionHandler(
+    		InvalidDocumentUploadTypeException.class
+    )
+    public ResponseEntity<ErrorResponse>
+    handleInvalidDocumentUploadException(
+    		InvalidDocumentUploadTypeException ex) {
+
+        ErrorResponse error =
+                new ErrorResponse(
+                        400,
+                        "Invalid Document Type Exception",
+                        ex.getMessage()
+                );
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(error);
+    }
+    
 
 //    
 //    UsernameNotFoundException

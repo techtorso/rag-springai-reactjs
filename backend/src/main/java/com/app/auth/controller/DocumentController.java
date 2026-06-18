@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.auth.exception.InvalidDocumentUploadTypeException;
 import com.app.auth.service.DocumentService;
 
 @RestController
@@ -57,8 +58,8 @@ public class DocumentController {
 		        "application/vnd.openxmlformats-officedocument.wordprocessingml.document".equals(file.getContentType()) ||
 		        "text/plain".equals(file.getContentType());
 		
-		if (!validExtension || !validMimeType) {
-		    throw new IllegalArgumentException("Unsupported file type");
+		if (!validExtension || !validMimeType) {	
+		    throw new InvalidDocumentUploadTypeException("Unsupported file type");
 		}
 	
 
