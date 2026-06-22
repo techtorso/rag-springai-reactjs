@@ -57,8 +57,8 @@ public class RagService {
 
     	    SearchRequest.Builder builder = SearchRequest.builder()
     	            .query(question)
-    	            .topK(5)
-    	            .similarityThreshold(0.4);
+    	            .topK(5);
+//    	            .similarityThreshold(0.2);
 
     	    if (fileName != null &&
     	            !fileName.isBlank() &&
@@ -89,7 +89,7 @@ public class RagService {
 
     	    if (docs == null || docs.isEmpty()) {
     	    	
-    	    	builder.similarityThreshold(0.2);
+//    	    	builder.similarityThreshold(0.2);
     	    	
     	    	
     	    	docs = vectorStore.similaritySearch(builder.build());
@@ -105,6 +105,19 @@ public class RagService {
     	    	}
     	    		
     	    }
+    	    
+    	    
+    	    
+    	    System.out.println("Retrieved docs count: " + docs.size());
+
+    	    for (Document doc : docs) {
+    	        System.out.println("Retrieved content:");
+    	        System.out.println(doc.getText());
+    	        System.out.println("Metadata:");
+    	        System.out.println(doc.getMetadata());
+    	    }
+    	    
+    	    
 
 
     	    String context = docs.stream()
@@ -113,11 +126,33 @@ public class RagService {
     	                    doc.getText()))
     	            .collect(Collectors.joining("\n\n---\n\n"));
 
-    	    String prompt =
-    	            PromptTemplates.PROMPT_TEMPLATE
-    	                    .formatted(context, question);
+    	    boolean hasTelugu = context.matches(".*[\\u0C00-\\u0C7F].*");
+    	    
+    	    
+    	    String languageInstruction = hasTelugu
+    	            ? """
+    	              CRITICAL LANGUAGE RULE:
 
-    	    String answer = chatModel.call(prompt);
+    	              - The retrieved context contains Telugu content.
+    	              - You MUST answer entirely in Telugu.
+    	              - Do NOT answer in English.
+    	              - Technical terms such as Spring Boot, React, PostgreSQL, OpenAI, Docker may remain in English.
+    	              """
+    	            : """
+    	              CRITICAL LANGUAGE RULE:
+
+    	              - Answer in the same language as the user's question.
+    	              """;
+    	    
+    	    String finalPrompt =
+    	            languageInstruction + "\n\n" +
+    	            PromptTemplates.PROMPT_TEMPLATE.formatted(context, question);
+    	    
+    	    
+    	    
+//    	    String prompt = PromptTemplates.PROMPT_TEMPLATE.formatted(context, question);
+    	    
+    	    String answer = chatModel.call(finalPrompt);
 
     	    List<Map<String, String>> sources = docs.stream()
     	            .limit(3)
@@ -219,8 +254,8 @@ public class RagService {
 
         SearchRequest.Builder builder = SearchRequest.builder()
                 .query(question)
-                .topK(5)
-                .similarityThreshold(0.4);
+                .topK(5);
+                
 
         builder.filterExpression(
                 "uploadedBy == '" + currentUser +
@@ -309,7 +344,9 @@ public class RagService {
 	    );
 	} 
     
-    
+    private boolean containsTelugu(String text) {
+        return text != null && text.matches(".*[\\u0C00-\\u0C7F].*");
+    }
    
 }
 

@@ -40,7 +40,11 @@ export default function AskAI() {
         "Explain this document in simple terms",
         "Teach me this topic",
         "List important commands",
-        "Explain about this hymn"
+        "Explain about this hymn",
+        "ఈ డాక్యుమెంట్ సారాంశం చెప్పు",
+        "ఈ డాక్యుమెంట్‌లో ముఖ్యమైన అంశాలు ఏమిటి?",
+        "ఈ డాక్యుమెంట్‌లో ఎవరి పేరు ఉంది?",
+        "ఈ డాక్యుమెంట్ ఏ టెక్నాలజీల గురించి చెబుతోంది?"
     ];
 
     useEffect(() => {

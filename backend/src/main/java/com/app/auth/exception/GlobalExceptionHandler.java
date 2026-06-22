@@ -131,12 +131,10 @@ public class GlobalExceptionHandler {
     
     
     
-    @ExceptionHandler(
-    		InvalidDocumentUploadTypeException.class
-    )
-    public ResponseEntity<ErrorResponse>
-    handleInvalidDocumentUploadException(
-    		InvalidDocumentUploadTypeException ex) {
+    @ExceptionHandler(InvalidDocumentUploadTypeException.class)
+    
+    public ResponseEntity<ErrorResponse>  handleInvalidDocumentUploadException(InvalidDocumentUploadTypeException ex) 
+    {
 
         ErrorResponse error =
                 new ErrorResponse(
