@@ -2,7 +2,7 @@ import axios from "axios";
 // import api from "../services/api";
 
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL/api;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // const BASE_URL = "http://localhost:3214/api";
 export const askQuestion = async (
     question,
@@ -11,7 +11,7 @@ export const askQuestion = async (
 ) => {
 
     const response = await axios.post(
-        `${BASE_URL}/rag/ask`,
+        `${BASE_URL}/api/rag/ask`,
         {
             question,
             fileName

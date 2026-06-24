@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL/api;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 // const BASE_URL = "http://localhost:3214/api";
 export const delApi = async (
     question,
@@ -9,7 +9,7 @@ export const delApi = async (
 ) => {
 
     const response = await axios.post(
-        `${BASE_URL}/rag/documents/?{encodeURIComponent(fileName)}`,
+        `${BASE_URL}/api/rag/documents/?{encodeURIComponent(fileName)}`,
         {
             fileName
         },
