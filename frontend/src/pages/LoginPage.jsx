@@ -52,7 +52,13 @@ export default function LoginPage() {
 
             showToast("OTP sent successfully", "success");
 
+            console.log("Navigating to OTP page...");
+
+
+
+            sessionStorage.setItem("loginEmail", email);
             setTimeout(() => {
+                console.log("Inside setTimeout");
                 navigate("/verify-otp", {
                     state: {
                         email,

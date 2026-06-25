@@ -22,7 +22,7 @@ export default function VerifyOtpPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const email = location.state?.email || "";
+  const email = location.state?.email || sessionStorage.getItem("loginEmail") || "";
 
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
@@ -41,6 +41,13 @@ export default function VerifyOtpPage() {
   };
 
   const handleVerifyOtp = async () => {
+
+    if (!email) {
+    showToast("Email missing. Please login again.", "error");
+    navigate("/");
+    return;
+  }
+
     try {
       setLoading(true);
 
